@@ -1,0 +1,46 @@
+CREATE TABLE `data_platform_ferry_line_header_data`
+(
+  `FerryLine`                            int(16) NOT NULL,
+  `FerryLineType`                        varchar(4) NOT NULL,
+  `FerryLineOwner`                       int(12) NOT NULL,
+  `FerryLineOwnerBusinessPartnerRole`    varchar(40) NOT NULL,
+  `Brand`                                int(16) NOT NULL,
+  `PersonResponsible`                    varchar(40) DEFAULT NULL,
+  `URL`                                  varchar(200) DEFAULT NULL,
+  `ValidityStartDate`                    date NOT NULL,
+  `ValidityEndDate`                      date NOT NULL,
+  `DeparturePortOfOutboundLine`          int(16) NOT NULL,
+  `DestinationPortOfOutboundLine`        int(16) NOT NULL,
+  `Description`                          varchar(60) NOT NULL,
+  `LongText`                             varchar(1000) NOT NULL,
+  `Introduction`                         varchar(200) DEFAULT NULL,
+  `Project`                              int(16) DEFAULT NULL,
+  `WBSElement`                           int(8) DEFAULT NULL,
+  `Tag1`                                 varchar(40) DEFAULT NULL,
+  `Tag2`                                 varchar(40) DEFAULT NULL,
+  `Tag3`                                 varchar(40) DEFAULT NULL,
+  `Tag4`                                 varchar(40) DEFAULT NULL,
+  `CreationDate`                         date NOT NULL,
+  `CreationTime`                         time NOT NULL,
+  `LastChangeDate`                       date NOT NULL,
+  `LastChangeTime`                       time NOT NULL,
+  `CreateUser`                           int(12) NOT NULL,
+  `LastChangeUser`                       int(12) NOT NULL,
+  `IsReleased`                           tinyint(1) DEFAULT NULL,
+  `IsMarkedForDeletion`                  tinyint(1) DEFAULT NULL,
+
+    PRIMARY KEY (`FerryLine`),
+
+    CONSTRAINT `DPFMFerryLineHeaderDataFerryLineType_fk` FOREIGN KEY (`FerryLineType`) REFERENCES `data_platform_ferry_line_type_ferry_line_type_data` (`FerryLineType`),
+    CONSTRAINT `DPFMFerryLineHeaderDataFerryLineOwner_fk` FOREIGN KEY (`FerryLineOwner`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
+    CONSTRAINT `DPFMFerryLineHeaderDataFerryLineOwnerBPRole_fk` FOREIGN KEY (`FerryLineOwnerBusinessPartnerRole`) REFERENCES `data_platform_bp_role_bp_role_data` (`BusinessPartnerRole`),
+    CONSTRAINT `DPFMFerryLineHeaderDataBrand_fk` FOREIGN KEY (`Brand`) REFERENCES `data_platform_brand_header_data` (`Brand`),
+    CONSTRAINT `DPFMFerryLineHeaderDataDptPortOfOBLine_fk` FOREIGN KEY (`DeparturePortOfOutboundLine`) REFERENCES `data_platform_port_header_data` (`Port`),
+    CONSTRAINT `DPFMFerryLineHeaderDataDstPortOfOBLine_fk` FOREIGN KEY (`DestinationPortOfOutboundLine`) REFERENCES `data_platform_port_header_data` (`Port`),
+    CONSTRAINT `DPFMFerryLineHeaderDataProject_fk` FOREIGN KEY (`Project`) REFERENCES `data_platform_project_project_data` (`Project`),
+    CONSTRAINT `DPFMFerryLineHeaderDataWBSElement_fk` FOREIGN KEY (`Project`, `WBSElement`) REFERENCES `data_platform_project_wbs_element_data` (`Project`, `WBSElement`),
+    CONSTRAINT `DPFMFerryLineHeaderDataCreateUser_fk` FOREIGN KEY (`CreateUser`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
+    CONSTRAINT `DPFMFerryLineHeaderDataLastChangeUser_fk` FOREIGN KEY (`LastChangeUser`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`)
+
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
